@@ -3,14 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FotoPaste - Escáner de Imágenes</title>
+    <title>FotoPaste - Escáner de Imágenes y Editor Online | Captura y Edita Fácilmente</title>
+    
+    <!-- Primary Meta Tags -->
+    <meta name="description" content="FotoPaste: Herramienta gratuita para pegar, escanear y editar imágenes online. Compatible con Google Lens, ideal para capturas de pantalla y edición rápida de fotos.">
+    <meta name="keywords" content="fotopaste, escáner de imágenes, editor de imágenes, google lens, captura de pantalla, herramienta online, edición de fotos">
+    <meta name="author" content="Sebastian Alcaraz">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://fotopaste.com/">
     
     <!-- PWA Meta Tags -->
-    <meta name="description" content="Pega imágenes y escanéalas con Google Lens">
     <meta name="theme-color" content="#667eea">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="FotoPaste">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fotopaste.com/">
+    <meta property="og:title" content="FotoPaste - Escáner y Editor de Imágenes Online">
+    <meta property="og:description" content="Pega, escanea y edita imágenes fácilmente con FotoPaste. Integración con Google Lens y herramientas de captura de pantalla.">
+    <meta property="og:image" content="https://fotopaste.com/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fotopaste.com/">
+    <meta property="twitter:title" content="FotoPaste - Escáner y Editor de Imágenes Online">
+    <meta property="twitter:description" content="Pega, escanea y edita imágenes fácilmente con FotoPaste. Integración con Google Lens y herramientas de captura de pantalla.">
+    <meta property="twitter:image" content="https://fotopaste.com/twitter-image.jpg">
     
     <!-- Manifest -->
     <link rel="manifest" href="manifest.json">
@@ -23,41 +43,65 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "FotoPaste",
+      "description": "Herramienta online gratuita para pegar, escanear y editar imágenes con integración de Google Lens",
+      "applicationCategory": "ImageEditorApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Sebastian Alcaraz",
+        "url": "https://www.linkedin.com/in/sebastian-alcaraz/"
+      },
+      "browserRequirements": "Requires JavaScript. Requires HTML5.",
+      "softwareVersion": "1.0"
+    }
+    </script>
 </head>
 <body>
     <div class="container">
-        <header class="header">
+        <header class="header" role="banner">
             <div class="logo">
-                <i class="fas fa-camera"></i>
+                <i class="fas fa-camera" aria-hidden="true"></i>
                 <h1>FotoPaste</h1>
             </div>
             <p class="subtitle">Pega imágenes y escanéalas con Google Lens</p>
         </header>
 
-        <main class="main-content">
-            <div class="upload-area" id="uploadArea">
+        <main class="main-content" role="main">
+            <div class="upload-area" id="uploadArea" role="region" aria-label="Área de carga de imágenes">
                 <div class="upload-content">
-                    <i class="fas fa-image upload-icon"></i>
-                    <h3>Pega tu imagen aquí</h3>
+                    <i class="fas fa-image upload-icon" aria-hidden="true"></i>
+                    <h2>Pega tu imagen aquí</h2>
                     <p>Usa Ctrl+V (Cmd+V en Mac) para pegar una imagen</p>
                     <div class="upload-buttons">
-                        <button class="btn btn-primary" id="selectFileBtn">
-                            <i class="fas fa-folder-open"></i>
+                        <button class="btn btn-primary" id="selectFileBtn" aria-label="Seleccionar archivo de imagen">
+                            <i class="fas fa-folder-open" aria-hidden="true"></i>
                             Seleccionar archivo
                         </button>
-                        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                        <input type="file" id="fileInput" accept="image/*" style="display: none;" aria-label="Input para selección de archivo">
                     </div>
                 </div>
             </div>
 
-            <div class="images-grid" id="imagesGrid">
+            <div class="images-grid" id="imagesGrid" role="region" aria-label="Galería de imágenes cargadas">
                 <!-- Las imágenes se mostrarán aquí -->
             </div>
 
-            <div class="tips-section">
+            <section class="tips-section" aria-labelledby="tips-heading">
                 <div class="tip-card">
-                    <i class="fas fa-lightbulb"></i>
-                    <h4>💡 Tips para capturar pantalla</h4>
+                    <i class="fas fa-lightbulb" aria-hidden="true"></i>
+                    <h3 id="tips-heading">💡 Tips para capturar pantalla</h3>
                     <div class="tip-content">
                         <div class="tip-item">
                             <strong>Windows + Shift + S:</strong> Captura rápida que se guarda en el portapapeles
@@ -74,12 +118,12 @@
                         <p class="tip-note">¡Después de capturar, simplemente usa Ctrl+V aquí!</p>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <div class="instructions">
+            <section class="instructions" aria-labelledby="instructions-heading">
                 <div class="instruction-card">
-                    <i class="fas fa-mouse-pointer"></i>
-                    <h4>¿Cómo usar?</h4>
+                    <i class="fas fa-mouse-pointer" aria-hidden="true"></i>
+                    <h3 id="instructions-heading">¿Cómo usar?</h3>
                     <ol>
                         <li>Pega una imagen usando Ctrl+V o selecciona un archivo</li>
                         <li>La imagen se mostrará expandida automáticamente</li>
@@ -88,15 +132,16 @@
                         <li>Para usar Google Lens: copia la URL y pégalo manualmente en Google Lens</li>
                     </ol>
                 </div>
-            </div>
+            </section>
         </main>
 
-        <footer class="footer">
-            <p><a href="https://www.linkedin.com/in/sebastian-alcaraz/" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: none;">Sebastian Alcaraz</a> - Portapapeles de imágenes</p>        </footer>
+        <footer class="footer" role="contentinfo">
+            <p>Creado por <a href="https://www.linkedin.com/in/sebastian-alcaraz/" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: none;">Sebastian Alcaraz</a> - Portapapeles de imágenes</p>
+        </footer>
     </div>
 
-    <div class="toast" id="toast">
-        <i class="fas fa-check-circle"></i>
+    <div class="toast" id="toast" role="alert" aria-live="polite">
+        <i class="fas fa-check-circle" aria-hidden="true"></i>
         <span id="toastMessage">Imagen agregada exitosamente</span>
     </div>
 
