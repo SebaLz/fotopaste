@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FotoPaste - Escáner de Imágenes</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Pega imágenes y escanéalas con Google Lens">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="FotoPaste">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0idXJsKCNncmFkaWVudCkiLz4KPHBhdGggZD0iTTE2IDhDMTEuNTgxNyA4IDggMTEuNTgxNyA4IDE2VjI0SDZDMi42ODYyOSAyNCAwIDI2LjY4NjMgMCAzMFYzNEMwIDM3LjMxMzcgMi42ODYyOSA0MCA2IDQwSDI2QzI5LjMxMzcgNDAgMzIgMzcuMzEzNyAzMiAzNFYzMEMzMiAyNi42ODYzIDI5LjMxMzcgMjQgMjYgMjRIMjRWMTZDMjQgMTEuNTgxNyAyMC40MTgzIDggMTYgOFoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xNiAxMkMxMy43OTA5IDEyIDEyIDEzLjc5MDkgMTIgMTZWMjBIMTBDOC44OTU0MyAyMCA4IDIwLjg5NTQgOCAyMlYyNkM4IDI3LjEwNDYgOC44OTU0MyAyOCAxMCAyOEgyMkMyMy4xMDQ2IDI4IDI0IDI3LjEwNDYgMjQgMjZWMjJDMjQgMjAuODk1NCAyMy4xMDQ2IDIwIDIyIDIwSDIwVjE2QzIwIDEzLjc5MDkgMTguMjA5MSAxMiAxNiAxMloiIGZpbGw9IiM2NjdlZWEiLz4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj4KPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzY2N2VlYSIvPgo8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM3NjRiYTIiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iMjIiIGZpbGw9InVybCgjZ3JhZGllbnQpIi8+CjxwYXRoIGQ9Ik05MCA0NUM2OS4zMzk0IDQ1IDUyLjUgNjEuODM5NCA1Mi41IDgyLjVWMTEyLjVINDVDNDAuODA1NiAxMTIuNSAzNyAxMTYuMzA2IDM3IDEyMVYxNTMuNUMzNyAxNTguMTk0IDQwLjgwNTYgMTYyIDQ1IDE2MkgxMzVDMTM5LjE5NCAxNjIgMTQzIDE1OC4xOTQgMTQzIDE1My41VjEyMUMxNDMgMTE2LjMwNiAxMzkuMTk0IDExMi41IDEzNSAxMTIuNUgxMjcuNVY4Mi41QzEyNy41IDYxLjgzOTQgMTEwLjY2MSA0NSA5MCA0NVoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik05MCA2MEM3NC41MzUyIDYwIDYyIDcyLjUzNTIgNjIgODhWMTEwSDQ1QzQwLjgwNTYgMTEwIDM3IDExMy44MDYgMzcgMTE4VjE0MUMzNyAxNDUuMTk0IDQwLjgwNTYgMTQ5IDQ1IDE0OUgxMzVDMTM5LjE5NCAxNDkgMTQzIDE0NS4xOTQgMTQzIDE0MVYxMThDMTQzIDExMy44MDYgMTM5LjE5NCAxMTAgMTM1IDExMEgxMThWODhDMTE4IDcyLjUzNTIgMTA1LjQ2NSA2MCA5MCA2MFoiIGZpbGw9IiM2NjdlZWEiLz4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj4KPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzY2N2VlYSIvPgo8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM3NjRiYTIiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-camera"></i>
+                <h1>FotoPaste</h1>
+            </div>
+            <p class="subtitle">Pega imágenes y escanéalas con Google Lens</p>
+        </header>
+
+        <main class="main-content">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-content">
+                    <i class="fas fa-image upload-icon"></i>
+                    <h3>Pega tu imagen aquí</h3>
+                    <p>Usa Ctrl+V (Cmd+V en Mac) para pegar una imagen</p>
+                    <div class="upload-buttons">
+                        <button class="btn btn-primary" id="selectFileBtn">
+                            <i class="fas fa-folder-open"></i>
+                            Seleccionar archivo
+                        </button>
+                        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="images-grid" id="imagesGrid">
+                <!-- Las imágenes se mostrarán aquí -->
+            </div>
+
+            <div class="tips-section">
+                <div class="tip-card">
+                    <i class="fas fa-lightbulb"></i>
+                    <h4>💡 Tips para capturar pantalla</h4>
+                    <div class="tip-content">
+                        <div class="tip-item">
+                            <strong>Windows + Shift + S:</strong> Captura rápida que se guarda en el portapapeles
+                        </div>
+                        <div class="tip-item">
+                            <strong>Snipping Tool:</strong> Herramienta nativa de Windows para capturas
+                        </div>
+                        <div class="tip-item">
+                            <strong>PrtScn:</strong> Captura toda la pantalla al portapapeles
+                        </div>
+                        <div class="tip-item">
+                            <strong>Alt + PrtScn:</strong> Captura solo la ventana activa
+                        </div>
+                        <p class="tip-note">¡Después de capturar, simplemente usa Ctrl+V aquí!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="instructions">
+                <div class="instruction-card">
+                    <i class="fas fa-mouse-pointer"></i>
+                    <h4>¿Cómo usar?</h4>
+                    <ol>
+                        <li>Pega una imagen usando Ctrl+V o selecciona un archivo</li>
+                        <li>La imagen se mostrará expandida automáticamente</li>
+                        <li>Haz clic en la imagen para expandir/contraer</li>
+                        <li>Clic derecho para más opciones (abrir, copiar URL, descargar)</li>
+                        <li>Para usar Google Lens: copia la URL y pégalo manualmente en Google Lens</li>
+                    </ol>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p><a href="https://www.linkedin.com/in/sebastian-alcaraz/" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: none;">Sebastian Alcaraz</a> - Portapapeles de imágenes</p>        </footer>
+    </div>
+
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Imagen agregada exitosamente</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
